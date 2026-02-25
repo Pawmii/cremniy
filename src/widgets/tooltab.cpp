@@ -1,4 +1,5 @@
 #include "tooltab.h"
+#include "QHexView/qhexview.h"
 #include "filetab.h"
 #include <QCodeEditor.hpp>
 #include <QFile>
@@ -39,8 +40,18 @@ ToolTab::ToolTab(FileTab *fwparent, QString path) :
     QFileInfo fileInfo(path);
     QString ext = fileInfo.suffix();
 
-    QWidget *emptyWidget1 = new QWidget();
     QWidget *emptyWidget2 = new QWidget();
+
+    QHexDocument* document = QHexDocument::fromFile("/home/igmunv/test/notify.sh");
+
+    QWidget *hextabwidget = new QWidget(this);
+    hextabwidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    QHexView* hexview = new QHexView(hextabwidget);
+    hexview->setDocument(document);
+    auto layout = new QVBoxLayout(hextabwidget);
+    layout->addWidget(hexview);
+    hextabwidget->setLayout(layout);
 
     QIcon codeIcon(":/icons/code.png");
     QIcon hexIcon(":/icons/hex.png");
@@ -55,10 +66,8 @@ ToolTab::ToolTab(FileTab *fwparent, QString path) :
     m_codeEditor->setHighlighter(m_highlighters[ext]);
 
     this->addTab(m_codeEditor, codeIcon, "Code");
-    this->addTab(emptyWidget1, hexIcon, "Hex");
+    this->addTab(hextabwidget, hexIcon, "Hex");
     this->addTab(emptyWidget2, disasmIcon, "Disassembler");
-
-    FileTab* parrentTabWidget = qobject_cast<FileTab*>(parent());
 
 }
 

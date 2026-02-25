@@ -19,6 +19,7 @@ set(PROJECT_SOURCES
 )
 
 add_subdirectory(components/codeeditor)
+add_subdirectory(components/hexview)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(untitled1
@@ -73,6 +74,7 @@ else()
 endif()
 
 target_link_libraries(untitled1 PRIVATE codeeditor)
+target_link_libraries(untitled1 PRIVATE hexview)
 
 target_link_libraries(untitled1 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 

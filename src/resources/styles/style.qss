@@ -6,6 +6,11 @@ QWidget {
     font-size: 12px;
 }
 
+QHexView {
+    background-color: #1f1f1f;
+    font-size: 20px;
+}
+
 /* Кнопки */
 QPushButton {
     background-color: #262626;
